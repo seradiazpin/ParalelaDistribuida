@@ -4,6 +4,8 @@
 #include <stdlib.h>
 #include <time.h>
 
+int N;
+
 void multiplicar(int row, int col, int A[row][col],int B[row][col],int C[row][col]){ 
 
 	for(int i=0;i<row;i++){
@@ -39,7 +41,7 @@ void imprimirMatriz(int row, int col, int matrix[row][col]){
 	printf("matrix %i X %i:\n",row,col);
 	for(int i=0;i<row;i++){
         for(int j=0;j<col;j++){
-            printf("[%i]", matrix[i][j]);
+            printf("%i ", matrix[i][j]);
         }
         printf("\n");
      }
@@ -57,34 +59,48 @@ int filaXcolum (int N,int fil,int col,int M[N][N], int M1[N][N]){
 	return res;
 }
 
-int main(){
+int main(int argc, char* const argv[]){
 
-	int arregloN [9] = {2,4,8,16,32,64,128, 256, 512};
-
+	if(argv[1]==NULL){
+  		perror("Digite el tamaño de la matrix N");
+  		exit(-1);
+	}
+	N = atoi(argv[1]);
+	printf("N = %i\n", N);
+	if (N != 2 && N != 4 && N != 8 && N != 16 && N != 32 && N != 64 && N != 128 && N != 256 && N != 512 && N!= 1020)
+	{
+		perror("El tamaño debe ser un numero de estos [2,4,8,16,32,64,128, 256, 512, 1024]");
+  		exit(-1);
+	}
 	int pipefd[2],r;
 	pid_t pid;
-	float dato;
 	time_t inicio,fin;
 	double timediff;
 
+	//static int A[SIZE][SIZE], B[SIZE][SIZE], C[SIZE][SIZE] = {0};
+	/*
 	for(int x = 0; x < 9; x++){
-		int N = arregloN[x];
+		int N = arregloN[x];*/
 		printf("N: %i\n", N);
 		srand(time(NULL));
 
 		int MATRIZA[N][N];
 		initMatriz(N,N,MATRIZA);
-		printf("size: %lu\n",sizeof(int) );
-		printf("size: %lu\n",sizeof(MATRIZA) );
+		//imprimirMatriz(N,N,MATRIZA);
 
 		int MATRIZB [N][N];
 		initMatriz(N,N,MATRIZB);
+		//imprimirMatriz(N,N,MATRIZB);
 
 		int MATRIZC[N][N];
 		int MATRIZD[N][N];
 
 		//printf("res 1X1 => %i\n", filaXcolum(N,1,1,MATRIZA,MATRIZB)); 
-		time(&inicio);
+		
+		clock_t begin, end;
+    	double time_spent;
+
+    	begin = clock();
 		int dato[(N*N)/2];
 		r = pipe(pipefd);
 		if(r == -1){
@@ -132,23 +148,24 @@ int main(){
 			close(pipefd[0]);
 
 		}
-		time(&fin);
-		timediff = difftime(fin,inicio);
+		end = clock();
+		time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
 		printf("CON PROCESOS\n");
 		//imprimirMatriz(N,N,MATRIZC);
 		printf("---------------\n");
-		printf("tiempo %f\n",timediff);
+		printf("Elapsed time: %.2lf seconds.\n", time_spent);
+		//imprimirMatriz(N,N,MATRIZC);
 
 		printf("NORMAL\n");
-		time(&inicio);
+		begin = clock();
 		multiplicar(N,N,MATRIZA,MATRIZB,MATRIZD);
-		time(&fin);
+		end = clock();
+		time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
 		//imprimirMatriz(N,N,MATRIZD);
 		printf("---------------\n");
-		timediff = difftime(fin,inicio);
-		printf("tiempo %f\n",timediff);
+		printf("Elapsed time: %.2lf seconds.\n", time_spent);
 
-	}
+	//}
 
 	exit(0);
 }
