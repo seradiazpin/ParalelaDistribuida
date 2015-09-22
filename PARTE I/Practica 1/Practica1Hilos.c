@@ -164,10 +164,3 @@ int main(int argc, char* const argv[]){
 }
 
 
-/*
-1 0 1 0
-1 0 1 0
-1 0 1 0
-1 0 1 0
-*/
-

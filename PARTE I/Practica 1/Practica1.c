@@ -255,7 +255,7 @@ int N = arregloN[x];*/
 		printf("CON %i PROCESOS\n",p);
 
 		printf("---------------\n");
-		printf("Elapsed time: %.2lf seconds.\n", time_spent);
+		printf("Elapsed time: %.8lf seconds.\n", time_spent);
 //imprimirMatriz(N,N,MATRIZC);
 
 		exit(0);
