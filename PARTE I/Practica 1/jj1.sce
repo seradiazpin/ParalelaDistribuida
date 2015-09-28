@@ -33,7 +33,7 @@ x=[2
 1024
 ];
 
-plot(x,r,"-*",x,t,"-o");
+plot(x,t,"-o");
 hl=legend(['normal';'2 hilos';'4 hilos';'8 hilos';'16 hilos';'32 hilos';'64 hilos';'128 hilos';'512 hilos';'1024 hilos';],"in_upper_left");
 xtitle( 'Implementacion con Hilos', 'Tamaño', 'Tiempo(s)' ) ;
 

@@ -34,6 +34,12 @@ x=[2
 ];
 plot(x,t,"-o",x,r,"-*");
 hl=legend(['2 procesos';'4 procesos';'normal'],"in_upper_left");
-xtitle( 'Implementacion con Procesos', 'Tamaño', 'Tiempo(s)' ) ;
+title('Implementacion con Procesos','fontsize',6);
+xlabel("Tamaño", "fontsize", 5);
+ylabel("Tiempo(s)", "fontsize", 5);
+
+
+
+
 
 
